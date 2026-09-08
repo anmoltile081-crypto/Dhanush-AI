@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>धनुष AI - सीखो और बढ़ो</title>
+  
+  <!-- कार्टूनिश और राजस्थानी स्टाइल फ़ॉन्ट्स -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Yatra+One&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. स्प्लैश स्क्रीन (शुरुआती एनीमेशन) -->
+  <div id="splash-screen" class="splash-layer">
+    <div class="cloud-badge splash-anim">
+      <div class="bow-icon">🏹</div>
+      <h1 class="brand-text">धनुष AI</h1>
+      <p class="tag-line">ज्ञान का सटीक बाण</p>
+      <div class="dots-loader">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- मुख्य ऐप फ़्रेम (टैबलेट और फ़ोन दोनों पर सेंटर रहेगा) -->
+  <div class="app-frame">
+
+    <!-- ==================== स्क्रीन 1: होम स्क्रीन ==================== -->
+    <section id="home-screen" class="app-view active-view">
+      <!-- ऊपर बादलों जैसा हेडर (आपके स्केच के अनुसार) -->
+      <header class="cloud-header">
+        <div class="cloud-shape">
+          <div class="header-bow">🏹</div>
+          <h1 class="header-title">धनुष AI</h1>
+        </div>
+      </header>
+
+      <!-- विषयों की सूची (Subject Cards) -->
+      <div class="subjects-container" id="subjects-list">
+        
+        <button class="subject-card card-history" onclick="showSubject('इतिहास')">
+          <span class="subj-icon">📜</span>
+          <span class="subj-name">इतिहास</span>
+          <span class="arrow-badge">➔</span>
+        </button>
+
+        <button class="subject-card card-geography" onclick="showSubject('भूगोल')">
+          <span class="subj-icon">🌍</span>
+          <span class="subj-name">भूगोल</span>
+          <span class="arrow-badge">➔</span>
+        </button>
+
+        <button class="subject-card card-science" onclick="showSubject('Science')">
+          <span class="subj-icon">🔬</span>
+          <span class="subj-name">Science</span>
+          <span class="arrow-badge">➔</span>
+        </button>
+       
+        <button class="subject-card card-map" onclick="showSubject('मैप')">
+          <span class="subj-icon">🗺️</span>
+          <span class="subj-name">राजस्थान मैप</span>
+          <span class="arrow-badge">➔</span>
+        </button>
+  
+      </div>
+
+      <!-- नीचे नया फ़ोल्डर / फ़ाइल जोड़ने का प्लस (+) बटन -->
+      <div class="footer-add-bar">
+        <button class="add-folder-btn" onclick="openAddModal()">
+          <span class="plus-sign">➕</span>
+          <span>नया विषय / फ़ाइल जोड़ें</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ==================== स्क्रीन 2: अध्याय (Chapters) स्क्रीन ==================== -->
+    <section id="chapter-screen" class="app-view">
+      <div class="view-header">
+        <button class="nav-back-btn" onclick="goToScreen('home-screen')">⬅ बैक</button>
+        <h2 id="current-subject-title" class="view-heading">विषय के पाठ</h2>
+      </div>
+
+      <!-- अध्यायों की सूची (स्केच के 1, 2, 3, 4, 5 की तरह) -->
+      <div class="chapters-wrapper" id="chapters-list">
+        <!-- यह जावास्क्रिप्ट से डायनामिक लोड होगा -->
+      </div>
+    </section>
+
+
+    <!-- ==================== स्क्रीन 3: लोडिंग व नोट्स स्क्रीन ==================== -->
+    <section id="notes-screen" class="app-view">
+      <div class="view-header">
+        <button class="nav-back-btn" onclick="goToScreen('chapter-screen')">⬅ अध्याय</button>
+        <h2 id="notes-chapter-title" class="view-heading">पाठ के नोट्स</h2>
+      </div>
+
+      <!-- 2 सेकंड का लोडिंग एनीमेशन (धनुष AI लोगो के साथ) -->
+      <div id="chapter-loader" class="chapter-loader-box">
+        <div class="loading-cloud">
+          <div class="bow-icon bounce-anim">🏹</div>
+          <h3>धनुष AI</h3>
+          <p>नोट्स तैयार हो रहे हैं...</p>
+        </div>
+      </div>
+
+      <!-- असली नोट्स (लोडिंग हटने के बाद दिखेंगे) -->
+      <div id="notes-content-area" class="notes-body" style="display: none;">
+        <div class="note-card">
+          <h3 id="note-heading">पाठ का शीर्षक</h3>
+          <div id="note-text" class="note-paragraphs">
+            <!-- नोट्स यहाँ दिखेंगे -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== नया फ़ोल्डर / फ़ाइल पॉप-अप (Modal) ==================== -->
+    <div id="add-modal" class="modal-overlay" style="display: none;">
+      <div class="modal-card">
+        <h3>📁 नया फ़ोल्डर / विषय</h3>
+        <p>अपनी फ़ाइल का नाम दर्ज करें:</p>
+        
+        <input type="text" id="new-folder-name" placeholder="उदा. गणित, कंप्यूटर..." />
+
+        <!-- कैमरा या गैलरी से फ़ोटो लेने का विकल्प -->
+        <div class="camera-attach-box">
+          <label for="camera-input" class="camera-btn">
+            📷 कैमरा से फ़ोटो खींचें या चुनें
+          </label>
+          <input type="file" id="camera-input" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(event)" />
+          <div id="image-preview" class="preview-box" style="display: none;"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn cancel-btn" onclick="closeAddModal()">रद्द करें</button>
+          <button class="modal-btn save-btn" onclick="createNewFolder()">बनाएँ</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

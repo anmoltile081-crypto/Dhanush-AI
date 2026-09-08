@@ -1,0 +1,489 @@
+/* --- 1. बेसिक रीसेट और टैबलेट सेंटरिंग --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Fredoka', 'Yatra One', cursive, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fcefe3;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: block;
+}
+
+/* मुख्य ऐप फ्रेम: टैबलेट और फोन दोनों पर बीचों-बीच रहेगा */
+.app-frame {
+  width: 100%;
+  max-width: 550px;
+  min-height: 100vh;
+  background: #fffdfa;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 25px rgba(184, 80, 42, 0.15);
+  margin-left: auto !important;
+  margin-right: auto !important;
+  overflow: hidden;
+}
+
+/* --- 2. स्प्लैश स्क्रीन (शुरुआती एनीमेशन) --- */
+.splash-layer {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #fca311, #e76f51);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.cloud-badge {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 40px;
+  text-align: center;
+  border: 5px solid #d9480f;
+  box-shadow: 0 10px 0 #9c360b;
+}
+
+.bow-icon {
+  font-size: 60px;
+}
+
+.brand-text {
+  font-size: 36px;
+  color: #d9480f;
+  margin-top: 5px;
+}
+
+.tag-line {
+  font-size: 14px;
+  color: #6a040f;
+  font-weight: 700;
+  background: #ffe3e0;
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.dots-loader {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 15px;
+}
+
+.dots-loader span {
+  width: 10px;
+  height: 10px;
+  background: #d9480f;
+  border-radius: 50%;
+  animation: bounceDot 0.8s infinite alternate;
+}
+
+.dots-loader span:nth-child(2) { animation-delay: 0.2s; }
+.dots-loader span:nth-child(3) { animation-delay: 0.4s; }
+
+/* --- 3. स्क्रीन स्विचिंग --- */
+.app-view {
+  display: none;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  animation: popScreen 0.3s ease;
+}
+
+.app-view.active-view {
+  display: flex;
+}
+
+/* --- 4. बादलों वाला हेडर (स्केच 1 के अनुसार) --- */
+.cloud-header {
+  padding: 24px 16px 16px;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+}
+
+.cloud-shape {
+  background: #ffffff;
+  border: 4px solid #f77f00;
+  border-radius: 50px 50px 35px 35px;
+  padding: 12px 36px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 0 #d62828;
+}
+
+.header-bow {
+  font-size: 32px;
+}
+
+.header-title {
+  font-size: 28px;
+  color: #d62828;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* --- 5. विषय बटन (Subject Cards) --- */
+.subjects-container {
+  flex: 1;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subject-card {
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.subject-card:active {
+  transform: translateY(4px);
+  box-shadow: none !important;
+}
+
+/* इतिहास: केसरिया */
+.card-history {
+  background: #ffb703;
+  color: #4a2800;
+  border: 3px solid #fb8500;
+  box-shadow: 0 6px 0 #c75a00;
+}
+
+/* भूगोल: हरियाली वाला हरा */
+.card-geography {
+  background: #52b788;
+  color: #0d3822;
+  border: 3px solid #2d6a4f;
+  box-shadow: 0 6px 0 #1b4332;
+}
+
+/* Science: प्यारा आसमानी */
+.card-science {
+  background: #90e0ef;
+  color: #032147;
+  border: 3px solid #0096c7;
+  box-shadow: 0 6px 0 #023e8a;
+}
+
+/* नया जोड़ा गया कस्टम विषय */
+.card-custom {
+  background: #f4a261;
+  color: #431407;
+  border: 3px solid #e76f51;
+  box-shadow: 0 6px 0 #b23b18;
+}
+
+.subj-icon {
+  font-size: 30px;
+  margin-right: 14px;
+}
+
+.subj-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.arrow-badge {
+  margin-left: auto;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* नीचे का प्लस बटन */
+.footer-add-bar {
+  padding: 16px 20px 24px;
+}
+
+.add-folder-btn {
+  width: 100%;
+  background: #fdf0d5;
+  border: 3px dashed #c1121f;
+  color: #780000;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-folder-btn:active {
+  background: #fcd5ce;
+}
+
+/* --- 6. व्यू हेडर और बैक बटन --- */
+.view-header {
+  padding: 16px 20px;
+  background: #e76f51;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 5px solid #b23b18;
+  border-radius: 0 0 20px 20px;
+}
+
+.nav-back-btn {
+  background: #ffffff;
+  border: none;
+  color: #b23b18;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 14px;
+  box-shadow: 0 3px 0 #9c360b;
+  cursor: pointer;
+}
+
+.nav-back-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+.view-heading {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* --- 7. स्क्रीन 2: अध्याय सूची --- */
+.chapters-wrapper {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chapter-tile {
+  background: #ffffff;
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #dee2e6;
+}
+
+.chapter-tile:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.chap-num {
+  background: #ffe3e0;
+  color: #d9480f;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* --- 8. स्क्रीन 3: लोडिंग व नोट्स --- */
+.chapter-loader-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.loading-cloud {
+  background: white;
+  border: 4px solid #f77f00;
+  border-radius: 30px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 8px 0 #d62828;
+}
+
+.loading-cloud h3 {
+  font-size: 24px;
+  color: #d62828;
+  margin-top: 8px;
+}
+
+.loading-cloud p {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.bounce-anim {
+  animation: bounceBow 1s infinite alternate;
+}
+
+.notes-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.note-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  border: 3px solid #ffb703;
+  box-shadow: 0 6px 0 #fb8500;
+}
+
+.note-card h3 {
+  color: #d9480f;
+  font-size: 18px;
+  margin-bottom: 12px;
+  border-bottom: 2px dashed #f4a261;
+  padding-bottom: 6px;
+}
+
+.note-paragraphs {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* --- 9. फ़ोल्डर पॉप-अप (Modal) --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 24px;
+  padding: 20px;
+  border: 4px solid #d9480f;
+  box-shadow: 0 8px 0 #9c360b;
+}
+
+.modal-card h3 {
+  color: #d9480f;
+  font-size: 20px;
+}
+
+.modal-card p {
+  font-size: 13px;
+  color: #666;
+  margin: 6px 0 12px;
+}
+
+.modal-card input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: 2px solid #ccc;
+  outline: none;
+  font-size: 15px;
+}
+
+.camera-attach-box {
+  margin-top: 14px;
+}
+
+.camera-btn {
+  display: block;
+  text-align: center;
+  background: #edf2f4;
+  border: 2px dashed #8d99ae;
+  padding: 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2b2d42;
+}
+
+.preview-box img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.save-btn {
+  background: #52b788;
+  color: white;
+  box-shadow: 0 3px 0 #2d6a4f;
+}
+
+/* --- एनीमेशन कीफ्रेम्स --- */
+@keyframes bounceDot {
+  from { transform: translateY(0); opacity: 0.4; }
+  to { transform: translateY(-8px); opacity: 1; }
+}
+
+@keyframes bounceBow {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-14px) scale(1.1); }
+}
+
+@keyframes popScreen {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
